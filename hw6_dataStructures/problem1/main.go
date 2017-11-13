@@ -1,3 +1,11 @@
+/*
+ *
+ * Name: Dinesh Auti
+ * Date: 13 Nov 2017
+ * Problem 1
+ *
+ */
+
 package main
 
 import "fmt"
@@ -15,6 +23,7 @@ func main() {
 
 	var tempArray []float64
 	var temp float64
+	count := 0
 
 	fmt.Println("Enter six temperature values: ")
 
@@ -30,12 +39,11 @@ func main() {
 	for index, value := range tempArray {
 		if value < avg {
 			fmt.Printf("Day %d had temperature %4.2f which was below average \n", index, value)
+			count++
 		}
 	}
 
-
-
-
+	fmt.Printf("The number of days with a temperature below average is %d \n", count)
 
 }
 

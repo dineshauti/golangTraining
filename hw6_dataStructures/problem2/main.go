@@ -1,3 +1,11 @@
+/*
+ *
+ * Name: Dinesh Auti
+ * Date: 13 Nov 2017
+ * Problem 2
+ *
+ */
+
 package main
 
 import "fmt"

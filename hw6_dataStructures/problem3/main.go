@@ -1,3 +1,11 @@
+/*
+ *
+ * Name: Dinesh Auti
+ * Date: 13 Nov 2017
+ * Problem 3
+ *
+ */
+
 package main
 
 import (
