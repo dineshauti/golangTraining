@@ -7,14 +7,14 @@ import (
 
 func main() {
 
-	a := make([]map[int]int, 3)
-	for i := range a {
-		a[i] = make(map[int]int, 5)
+	adj_forest := make([][]float64, 3)
+	for i := range adj_forest {
+		adj_forest[i] = make([]float64, 3)
 	}
 
-	a[2][20] = 3434
+	adj_forest[0][2] = 32
 
-	fmt.Println(a)
+	fmt.Println(adj_forest)
 
 
 }

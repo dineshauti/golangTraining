@@ -16,13 +16,14 @@ var(
 	err error
 	data []string
 	comp componentsDS
+	adj_forest [][]float64
 )
 
 type componentsDS struct {
 	connected bool
 	numberOfComponents int
 	components [][]int
-	compMaps []map[int]int
+	compMaps []map[int]int // used to map actual components value eg: {4,6,7} to the values which start from 0,1...
 }
 
 
@@ -117,11 +118,20 @@ func printMST(parent []int, vertices int, graph [][]float64, k int) {
 
 	fmt.Println("Edge Weight")
 
-
 	for i :=1; i < vertices; i++ {
-		fmt.Printf("%d - %d    %f \n", comp.compMaps[k][parent[i]+1], comp.compMaps[k][i+1], graph[i][parent[i]])
-	}
+		if comp.numberOfComponents != 1 {
+			fmt.Printf("%d - %d    %f \n", comp.compMaps[k][parent[i]], comp.compMaps[k][i], graph[i][parent[i]])
+			adj_forest[comp.compMaps[k][parent[i]]-1][comp.compMaps[k][i]-1] = graph[i][parent[i]]
+			adj_forest[comp.compMaps[k][i]-1][comp.compMaps[k][parent[i]]-1] = graph[i][parent[i]]
+		} else {
+			fmt.Printf("%d - %d    %f \n", comp.compMaps[k][parent[i]+1], comp.compMaps[k][i+1], graph[i][parent[i]])
+			adj_forest[comp.compMaps[k][parent[i]]][comp.compMaps[k][i]] = graph[i][parent[i]]
+			adj_forest[comp.compMaps[k][i]][comp.compMaps[k][parent[i]]] = graph[i][parent[i]]
+		}
 
+
+
+	}
 
 
 
@@ -249,7 +259,6 @@ func init() {
 func main() {
 
 
-
 	// Setup Adjacency Matrix/List
 	adj_matrix := adjMatrix(data)
 	adj_list := adjList(data)
@@ -269,6 +278,8 @@ func main() {
 		fmt.Println("Graph is not connected")
 	}
 
+	fmt.Println()
+
 	fmt.Printf("Number of components :- %d \n",comp.numberOfComponents)
 
 	for i:=0; i<comp.numberOfComponents; i++ {
@@ -276,11 +287,16 @@ func main() {
 
 	}
 
+
 	comp.compMaps = make([]map[int]int, comp.numberOfComponents)
 	for i := range comp.compMaps {
 		comp.compMaps[i] = make(map[int]int, 10)
 	}
 
+	adj_forest = make([][]float64, V)
+	for i := range adj_forest {
+		adj_forest[i] = make([]float64, V)
+	}
 
 	fmt.Println()
 
@@ -291,7 +307,7 @@ func main() {
 			sort.Ints(comp.components[k])
 
 			for i:=0; i<len(comp.components[k]); i++ {
-				comp.compMaps[k][i+1] = comp.components[k][i]
+				comp.compMaps[k][i] = comp.components[k][i]
 			}
 
 			// Form adjacency matrices for the components
@@ -325,5 +341,7 @@ func main() {
 		prims(adj_matrix, V, 0)
 	}
 
+	fmt.Println("Minimum Forest Adjacency Matrix: ")
+	fmt.Println(adj_forest)
 
 }
