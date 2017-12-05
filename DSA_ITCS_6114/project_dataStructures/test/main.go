@@ -2,19 +2,31 @@ package main
 
 import (
 	"fmt"
+	"bufio"
+	"os"
+	"strings"
+	"strconv"
+)
+
+var(
+	inputArray []float64
 )
 
 
 func main() {
 
-	adj_forest := make([][]float64, 3)
-	for i := range adj_forest {
-		adj_forest[i] = make([]float64, 3)
+	//reads line all in one go
+	reader := bufio.NewReader(os.Stdin)
+	input, _ := reader.ReadString('\n')
+	arr := strings.Split(input, " ")
+
+	for _,x := range arr {
+
+		y,_ := strconv.ParseFloat(strings.TrimSpace(x),64)
+		inputArray = append(inputArray, y)
 	}
 
-	adj_forest[0][2] = 32
-
-	fmt.Println(adj_forest)
+	fmt.Println(inputArray)
 
 
 }
