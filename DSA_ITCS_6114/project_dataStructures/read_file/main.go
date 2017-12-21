@@ -253,7 +253,7 @@ func connectedComponents(adj_list [][]int) {
 // The program initializes by reading the graph
 func init() {
 	// Read the graph
-	data = readGraph("C:\\Users\\Dinesh Auti\\IdeaProjects\\go\\src\\github.com\\dineshauti\\golangTraining\\DSA_ITCS_6114\\project_dataStructures\\read_file\\graph4.md")
+	data = readGraph("C:\\Users\\Dinesh Auti\\IdeaProjects\\go\\src\\github.com\\dineshauti\\golangTraining\\DSA_ITCS_6114\\project_dataStructures\\read_file\\graph1.md")
 
 }
 

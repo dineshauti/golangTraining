@@ -72,7 +72,8 @@ func adjList(lines []string) [][]int {
 
 }
 
-func dfSUtil(v int, visited []bool, adj_list [][]int, conn map[int]int) {
+// Actual DFS logic
+func dfs(v int, visited []bool, adj_list [][]int, conn map[int]int) {
 
 	visited[v] = true
 	conn[v] = v
@@ -81,11 +82,12 @@ func dfSUtil(v int, visited []bool, adj_list [][]int, conn map[int]int) {
 
 	for i := 0; i < len(adj); i++ {
 		if !visited[adj[i]] {
-			dfSUtil(adj[i], visited, adj_list, conn)
+			dfs(adj[i], visited, adj_list, conn)
 		}
 	}
 }
 
+// Main logic to call DFS and find the connected components
 func connectedComponents(adj_list [][]int) {
 
 	components := make(map[int]int)
@@ -94,7 +96,7 @@ func connectedComponents(adj_list [][]int) {
 	for v := 1; v <= V; v++ {
 
 		if visited[v] == false {
-			dfSUtil(v, visited, adj_list, components)
+			dfs(v, visited, adj_list, components)
 
 			if len(components) == V {
 				comp.connected = true
@@ -111,7 +113,7 @@ func connectedComponents(adj_list [][]int) {
 
 func init() {
 	// Read the graph
-	data = readGraph("C:\\Users\\Dinesh Auti\\IdeaProjects\\go\\src\\github.com\\dineshauti\\golangTraining\\DSA_ITCS_6114\\project_dataStructures\\read_file\\graph2.md")
+	data = readGraph("C:\\Users\\Dinesh Auti\\IdeaProjects\\go\\src\\github.com\\dineshauti\\golangTraining\\DSA_ITCS_6114\\project_dataStructures\\read_file\\graph4.md")
 
 }
 
